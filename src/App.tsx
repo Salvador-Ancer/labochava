@@ -1,13 +1,11 @@
 import "./styles.css";
-
-const environment = import.meta.env.VITE_PUBLIC_ENVIRONMENT || "local";
-const version = import.meta.env.VITE_PUBLIC_VERSION || "dev-local";
+import { config } from "./config";
 
 const notes = [
   "Pipeline de calidad activo",
   "Promoción controlada de develop a staging",
   "Despliegue de staging en GitHub Pages",
-  "Cambio visible desde develop"
+  `Feature X: ${config.featureX ? "activa" : "inactiva"}`,
 ];
 
 export default function App() {
@@ -15,7 +13,7 @@ export default function App() {
     <main className="shell">
       <section className="hero">
         <p className="eyebrow">Laboratorio 1 · Despliegue con GitHub</p>
-        <h1>Release Board V1</h1>
+        <h1>{config.appName}</h1>
         <p className="hero-copy">
           Aplicación mínima para practicar pipeline, despliegue y promoción entre entornos.
         </p>
@@ -24,13 +22,13 @@ export default function App() {
       <section className="grid">
         <article className="card card-accent">
           <h2>Entorno actual</h2>
-          <p className="badge">{environment}</p>
+          <p className="badge">{config.environment}</p>
           <p>Este valor cambia en cada build y nos ayuda a verificar qué entorno estamos viendo.</p>
         </article>
 
         <article className="card">
           <h2>Versión visible</h2>
-          <p className="mono">{version}</p>
+          <p className="mono">{config.version}</p>
           <p>Usaremos el SHA corto del commit para identificar qué versión llegó a staging.</p>
         </article>
 
